@@ -1,11 +1,115 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
-    android:layout_height="match_parent" android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
-    android:paddingBottom="@dimen/activity_vertical_margin" tools:context=".TemperatureConverter">
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:gravity="top"
+              android:orientation="vertical">
 
-    <TextView android:text="@string/hello_world" android:layout_width="wrap_content"
+    <TextView
+        android:text="@string/convert"
+        android:textSize="32dp"
+        android:textColor="@android:color/darker_gray"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
 
-</RelativeLayout>
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <RadioGroup
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:paddingRight="6dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/from"
+                android:textSize="32dp"
+                android:textColor="@android:color/darker_gray"/>
+
+            <RadioButton
+                android:id="@+id/celsius_frombutton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/celsius"
+                android:textSize="32dp"/>
+
+            <RadioButton
+                android:id="@+id/farenheit_frombutton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/farenheit"
+                android:textSize="32dp"/>
+
+            <RadioButton
+                android:id="@+id/kelvin_frombutton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/kelvin"
+                android:textSize="32dp"/>
+
+            <RadioButton
+                android:id="@+id/rankin_frombutton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/rankin"
+                android:textSize="32dp"/>
+        </RadioGroup>
+
+        <RadioGroup
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:paddingLeft="6dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/to"
+                android:textSize="32dp"
+                android:textColor="@android:color/darker_gray"/>
+
+            <RadioButton
+                android:id="@+id/celsius_tobutton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/celsius"
+                android:textSize="32dp"/>
+
+            <RadioButton
+                android:id="@+id/farenheit_tobutton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/farenheit"
+                android:textSize="32dp"/>
+
+            <RadioButton
+                android:id="@+id/kelvin_tobutton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/kelvin"
+                android:textSize="32dp"/>
+
+            <RadioButton
+                android:id="@+id/rankin_tobutton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/rankin"
+                android:textSize="32dp"/>
+        </RadioGroup>
+
+    </LinearLayout>
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:text="@string/convert_button"
+        android:textSize="32dp"/>
+
+</LinearLayout>
