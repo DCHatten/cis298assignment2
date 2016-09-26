@@ -1,8 +1,6 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:layout_width="match_parent"
-              android:layout_height="match_parent"
-              android:gravity="top"
-              android:orientation="vertical">
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+             android:layout_width="match_parent"
+             android:layout_height="match_parent">
 
     <TextView
         android:text="@string/convert"
@@ -26,7 +24,7 @@
         <RadioGroup
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical"
+            android:orientation="horizontal"
             android:paddingRight="6dp">
 
             <TextView
@@ -41,7 +39,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/celsius"
-                android:onClick="fromSelection"
                 android:textSize="32dp"/>
 
             <RadioButton
@@ -49,7 +46,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/farenheit"
-                android:onClick="fromSelection"
                 android:textSize="32dp"/>
 
             <RadioButton
@@ -57,7 +53,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/kelvin"
-                android:onClick="fromSelection"
                 android:textSize="32dp"/>
 
             <RadioButton
@@ -65,14 +60,13 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/rankin"
-                android:onClick="fromSelection"
                 android:textSize="32dp"/>
         </RadioGroup>
 
         <RadioGroup
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical"
+            android:orientation="horizontal"
             android:paddingLeft="6dp">
 
             <TextView
@@ -87,7 +81,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/celsius"
-                android:onClick="toSelection"
                 android:textSize="32dp"/>
 
             <RadioButton
@@ -95,7 +88,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/farenheit"
-                android:onClick="toSelection"
                 android:textSize="32dp"/>
 
             <RadioButton
@@ -103,7 +95,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/kelvin"
-                android:onClick="toSelection"
                 android:textSize="32dp"/>
 
             <RadioButton
@@ -111,7 +102,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/rankin"
-                android:onClick="toSelection"
                 android:textSize="32dp"/>
         </RadioGroup>
 
@@ -144,4 +134,4 @@
         android:text=""
         android:textColor="@android:color/darker_gray"/>
 
-</LinearLayout>
+</FrameLayout>
