@@ -9,14 +9,18 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.appindexing.Action;
 import com.google.android.gms.appindexing.AppIndex;
 import com.google.android.gms.appindexing.Thing;
 import com.google.android.gms.common.api.GoogleApiClient;
+
+import java.util.Set;
 
 public class TemperatureConverter extends AppCompatActivity {
 
@@ -25,10 +29,12 @@ public class TemperatureConverter extends AppCompatActivity {
     private String mFromType;
     private String mToType;
     private Button mConvertButton;
-    private String mUser_Input;
     private double mUserInput;
     ConversionMath conversionMath = new ConversionMath();
-    private double mConverted;
+    private String mConverted;
+    public TextView result;
+    public TextView formula;
+    public EditText user_input;
 
     /**
      * ATTENTION: This was auto-generated to implement the App Indexing API.
@@ -40,15 +46,30 @@ public class TemperatureConverter extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_temperature_converter);
+        result = (TextView) findViewById(R.id.coversion_answer);
+        formula = (TextView) findViewById(R.id.conversion_formula);
         Log.d(TAG, "onCreate(Bundle) called");
 
-        mConvertButton = (Button)findViewById(R.id.convert_button);
+        mConvertButton = (Button) findViewById(R.id.convert_button);
         mConvertButton.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view){
-                mConverted = conversionMath.CalculateConversion(mFromType,mToType,mUserInput);
+            public void onClick(View view) {
+                user_input = (EditText)findViewById(R.id.user_input);
+                ParseUserInput();
+                mConverted = conversionMath.CalculateConversion(mFromType, mToType, mUserInput);
+                PrintResult();
+                PrintFormula();
             }
-        };
+        });
+    }
+
+    public void ParseUserInput(){
+        try {
+            mUserInput = Double.parseDouble(user_input.getText().toString());
+        }
+        catch (Error e){
+            Toast.makeText(this, "You must enter a number to continue", Toast.LENGTH_SHORT).show();
+        }
     }
 
     public void fromSelection(View view) {
@@ -82,23 +103,128 @@ public class TemperatureConverter extends AppCompatActivity {
         switch (view.getId()) {
             case R.id.celsius_tobutton:
                 if (checked)
-                    mToType = "Celsius";
+                    mToType = "ToCelsius";
                 break;
             case R.id.farenheit_tobutton:
                 if (checked)
-                    mToType = "Farenheit";
+                    mToType = "ToFarenheit";
                 break;
             case R.id.kelvin_tobutton:
                 if (checked)
-                    mToType = "Kelvin";
+                    mToType = "ToKelvin";
                 break;
             case R.id.rankin_tobutton:
                 if (checked)
-                    mToType = "Rankin";
+                    mToType = "ToRankin";
                 break;
             default:
                 Toast.makeText(this, "You must select a unit to convert to", Toast.LENGTH_SHORT).show();
         }
+    }
+
+    public void PrintResult() {
+        String fromType = "";
+        String toType = "";
+        switch (mFromType) {
+            case "Celsius":
+                fromType = "°C";
+                break;
+            case "Farenheit":
+                fromType = "°F";
+                break;
+            case "Kelvin":
+                fromType = "K";
+                break;
+            case "Rankin":
+                fromType = "°R";
+                break;
+        }
+        switch (mToType) {
+            case "ToCelsius":
+                toType = "°C";
+                break;
+            case "ToFarenheit":
+                toType = "°F";
+                break;
+            case "ToKelvin":
+                toType = "K";
+                break;
+            case "ToRankin":
+                toType = "°R";
+                break;
+        }
+        result.setText((Double.toString(mUserInput)) + fromType + " = " + mConverted + toType);
+    }
+
+    private void PrintFormula() {
+        String mformula = "";
+        switch (mFromType) {
+            case "Celsius":
+                switch (mToType) {
+                    case "ToCelsius":
+                        mformula = "°C = °C";
+                        break;
+                    case "ToFarenheit":
+                        mformula = "(°C * 9/5) + 32";
+                        break;
+                    case "ToKelvin":
+                        mformula = "°C + 273.15";
+                        break;
+                    case "ToRankin":
+                        mformula = "(°C + 273.15) × 9/5";
+                        break;
+                }
+                break;
+            case "Farenheit":
+                switch (mToType) {
+                    case "ToCelsius":
+                        mformula = "(°F - 32) * 5/9";
+                        break;
+                    case "ToFarenheit":
+                        mformula = "°F = °F";
+                        break;
+                    case "ToKelvin":
+                        mformula = "(°F - 32) * 5/9 + 273.15";
+                        break;
+                    case "ToRankin":
+                        mformula = "°F + 459.67";
+                        break;
+                }
+                break;
+            case "Kelvin":
+                switch (mToType) {
+                    case "ToCelsius":
+                        mformula = "K - 273.15";
+                        break;
+                    case "ToFarenheit":
+                        mformula = "(K - 273.15) * 9/5 + 32";
+                        break;
+                    case "ToKelvin":
+                        mformula = "K = K";
+                        break;
+                    case "ToRankin":
+                        mformula = "K × 9/5";
+                        break;
+                }
+                break;
+            case "Rankin":
+                switch (mToType) {
+                    case "ToCelsius":
+                        mformula = "(°R − 491.67) × 5/9";
+                        break;
+                    case "ToFarenheit":
+                        mformula = "°R − 459.67";
+                        break;
+                    case "ToKelvin":
+                        mformula = "°R × 5/9";
+                        break;
+                    case "ToRankin":
+                        mformula = "°R = °R";
+                        break;
+                }
+                break;
+        }
+        formula.setText(mformula);
     }
 
     @Override
@@ -121,68 +247,5 @@ public class TemperatureConverter extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
-    }
-
-    @Override
-    protected void onStart() {
-        super.onStart();// ATTENTION: This was auto-generated to implement the App Indexing API.
-// See https://g.co/AppIndexing/AndroidStudio for more information.
-        mClient.connect();
-        Log.d(TAG, "onStart() called");
-        // ATTENTION: This was auto-generated to implement the App Indexing API.
-        // See https://g.co/AppIndexing/AndroidStudio for more information.
-        AppIndex.AppIndexApi.start(mClient, getIndexApiAction());
-    }
-
-    @Override
-    protected void onStop() {
-        super.onStop();// ATTENTION: This was auto-generated to implement the App Indexing API.
-// See https://g.co/AppIndexing/AndroidStudio for more information.
-        AppIndex.AppIndexApi.end(mClient, getIndexApiAction());
-        Log.d(TAG, "onStop() called");
-        // ATTENTION: This was auto-generated to implement the App Indexing API.
-        // See https://g.co/AppIndexing/AndroidStudio for more information.
-        mClient.disconnect();
-    }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        Log.d(TAG, "onDestroy() called");
-    }
-
-    @Override
-    protected void onPause() {
-        super.onPause();
-        Log.d(TAG, "onPause() called");
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-        Log.d(TAG, "onResume() called");
-    }
-
-    @Override
-    protected void onSaveInstanceState(Bundle savedInstanceState) {
-        super.onSaveInstanceState(savedInstanceState);
-        Log.i(TAG, "onSavedInstanceState");
-
-    }
-
-    /**
-     * ATTENTION: This was auto-generated to implement the App Indexing API.
-     * See https://g.co/AppIndexing/AndroidStudio for more information.
-     */
-    public Action getIndexApiAction() {
-        Thing object = new Thing.Builder()
-                .setName("TemperatureConverter Page") // TODO: Define a title for the content shown.
-                // TODO: Make sure this auto-generated URL is correct.
-                .setUrl(Uri.parse("http://[ENTER-YOUR-URL-HERE]"))
-                .build();
-        return new Action.Builder(Action.TYPE_VIEW)
-                .setObject(object)
-                .setActionStatus(Action.STATUS_TYPE_COMPLETED)
-                .build();
     }
 }

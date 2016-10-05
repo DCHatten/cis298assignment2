@@ -1,5 +1,6 @@
 package edu.kvcc.cis298.cis298assignment2;
 
+import java.text.DecimalFormat;
 import java.util.FormatFlagsConversionMismatchException;
 
 /**
@@ -46,72 +47,78 @@ public class ConversionMath {
         //default constructor
     }
 
-    public double CalculateConversion(String fromType, String toType, double userInput) {
+    public String CalculateConversion(String fromType, String toType, double userInput) {
         mUserInput = userInput;
         mFromType = fromType;
         mToType = toType;
 
-        switch (mFromType){
+        switch (mFromType) {
             case "Celsius":
-                switch (mToType){
-                    case "Celsius":
+                switch (mToType) {
+                    case "ToCelsius":
                         mConverted = mUserInput;
                         break;
-                    case "Farenheit":
+                    case "ToFarenheit":
                         mConverted = mUserInput * 1.8 + 32;
                         break;
-                    case "Kelvin":
+                    case "ToKelvin":
                         mConverted = mUserInput + 273.15;
                         break;
-                    case "Rankin":
-                        mConverted = (mUserInput + 273.15) * 9/5;
+                    case "ToRankin":
+                        mConverted = (mUserInput + 273.15) * 9 / 5;
                         break;
+                }
                 break;
             case "Farenheit":
-                switch (mToType){
-                    case "Celsius":
-                        mConverted = (mUserInput - 32) * 5/9;
+                switch (mToType) {
+                    case "ToCelsius":
+                        mConverted = (mUserInput - 32) * 5 / 9;
                         break;
-                    case "Farenheit":
+                    case "ToFarenheit":
                         mConverted = mUserInput;
                         break;
-                    case "Kelvin":
-                        mConverted = (mUserInput  + 459.67) * 5/9;
+                    case "ToKelvin":
+                        mConverted = (mUserInput + 459.67) * 5 / 9;
                         break;
-                    case "Rankin":
+                    case "ToRankin":
                         mConverted = mUserInput + 459.67;
                         break;
+                }
                 break;
             case "Kelvin":
-                switch (mToType){
-                    case "Celsius":
+                switch (mToType) {
+                    case "ToCelsius":
                         mConverted = mUserInput - 273.15;
                         break;
-                    case "Farenheit":
-                        mConverted = mUserInput * 9/5 - 459.67;
+                    case "ToFarenheit":
+                        mConverted = mUserInput * 9 / 5 - 459.67;
                         break;
-                    case "Kelvin":
+                    case "ToKelvin":
                         mConverted = mUserInput;
                         break;
-                    case "Rankin":
-                        mConverted = mUserInput * 9/5;
+                    case "ToRankin":
+                        mConverted = mUserInput * 9 / 5;
                         break;
+                }
                 break;
             case "Rankin":
-                switch (mToType){
-                    case "Celsius":
-                        mConverted = (mUserInput - 491.67) * 5/9;
+                switch (mToType) {
+                    case "ToCelsius":
+                        mConverted = (mUserInput - 491.67) * 5 / 9;
                         break;
-                    case "Farenheit":
+                    case "ToFarenheit":
                         mConverted = mUserInput - 459.67;
                         break;
-                    case "Kelvin":
-                        mConverted = mUserInput * 5/9;
+                    case "ToKelvin":
+                        mConverted = mUserInput * 5 / 9;
                         break;
-                    case "Rankin":
+                    case "ToRankin":
                         mConverted = mUserInput;
                         break;
-                    break;
-        return mConverted;
+                }
+                break;
+        }
+        DecimalFormat df = new DecimalFormat("#.##");
+        return df.format(mConverted);
     }
 }
