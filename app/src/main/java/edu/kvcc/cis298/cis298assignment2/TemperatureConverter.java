@@ -43,7 +43,7 @@ public class TemperatureConverter extends AppCompatActivity {
     private GoogleApiClient mClient;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_temperature_converter);
         result = (TextView) findViewById(R.id.coversion_answer);
@@ -55,20 +55,27 @@ public class TemperatureConverter extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 user_input = (EditText)findViewById(R.id.user_input);
-                ParseUserInput();
-                mConverted = conversionMath.CalculateConversion(mFromType, mToType, mUserInput);
-                PrintResult();
-                PrintFormula();
+                if (user_input != null){
+                    ParseUserInput(savedInstanceState);
+                    mConverted = conversionMath.CalculateConversion(mFromType, mToType, mUserInput);
+                    PrintResult();
+                    PrintFormula();
+                } else {
+                    Toast.makeText(TemperatureConverter.this, "You must enter a value to continue",
+                            Toast.LENGTH_SHORT).show();
+                    onCreate(savedInstanceState);
+                }
             }
         });
     }
 
-    public void ParseUserInput(){
+    public void ParseUserInput(Bundle savedInstanceState){
         try {
             mUserInput = Double.parseDouble(user_input.getText().toString());
         }
-        catch (Error e){
+        catch (Error error){
             Toast.makeText(this, "You must enter a number to continue", Toast.LENGTH_SHORT).show();
+            onCreate(savedInstanceState);
         }
     }
 
