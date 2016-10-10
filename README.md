@@ -46,7 +46,7 @@ The book does not cover how to do work with Radio Buttons. I will talk about it 
 
 ## Outside Resources Used
 
-None
+Wikipedia for Conversion Formulas
 
 ## Known Problems, Issues, And/Or Errors in the Program
 
